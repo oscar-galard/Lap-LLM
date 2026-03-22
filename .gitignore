@@ -6,6 +6,31 @@ dist/
 wheels/
 *.egg-info
 .env
+secrets.json
 
 # Virtual environments
 .venv
+
+# Vite specific
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editors 
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+# tmp files on Emacs
+\#*\#
+.#*

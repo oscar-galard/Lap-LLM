@@ -2,7 +2,7 @@
 
 # Get RAM info
 read total used free _ <<< $(free -m | awk 'NR==2{print $2,$3,$4}')
-echo "RAM: ${used}M (used)/${total}M (total) (${free}M free)"
+echo "RAM: ${used}M/${total}M (${free}M free)"
 
 # Get GPU info
 lspci -k | grep -i vga | cut -d: -f3- | head -1 | sed 's/^/GPU: /'
