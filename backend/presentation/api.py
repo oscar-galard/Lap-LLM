@@ -17,21 +17,14 @@ app = FastAPI(title="LAP-LLM Backend API")
 # Define routes
 @app.post("/hardware-specs/")
 async def register_hardware_specs(specs: HardwareSpecsDTO):
-    # Convert DTO to entity
-    hardware_entity = HardwareSpecs(
-        cpu_model=specs.cpu_model,
-        total_ram=specs.total_ram,
-        used_ram=specs.used_ram,
-        free_ram=specs.free_ram,
-        os=specs.os,
-        free_storage=specs.free_storage
-    )
-    
     # Register specs using use case
-    register_specs_use_case.execute(hardware_entity)
+    models, memory_info = register_specs_use_case.execute(specs)
     
-    return {"message": "Hardware specifications registered successfully"}
-
+    return {
+        "message": "Hardware specifications registered successfully",
+        "memory_info": memory_info
+    }
+    
 @app.get("/models/")
 async def get_models():
     # Get hardware specs

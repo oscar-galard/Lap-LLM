@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 @dataclass
 class HardwareSpecs:
@@ -8,6 +9,8 @@ class HardwareSpecs:
     free_ram: int
     os: str
     free_storage: int
+    gpu_model: str
+    is_dual_channel: Optional[bool]
 
 @dataclass
 class ModelSpecs:
