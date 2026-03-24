@@ -6,5 +6,17 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.135.1",
+    "langchain>=1.2.13",
+    "langchain-community>=0.4.1",
+    "langchain-core>=1.2.21",
+    "langchain-openai>=1.1.12",
+    "langchain-text-splitters>=1.1.1",
+    "pypdf2>=3.0.1",
     "uvicorn>=0.42.0",
+    "psycopg2-binary>=2.9.9",
+    "langchain-postgres>=0.0.12",
+    "pgvector>=0.2.5",
+    "python-dotenv>=1.0.1",
+    "dotenv>=0.9.9",
+    "pypdf>=6.9.2",
 ]

@@ -28,3 +28,9 @@ Mon Mar 23 12:28:37 PM CST 2026
   - Terminal Linux
   - Hacking/cyberpunk
   - Años 80 (retro)
+
+[UI inspiration 1](https://www.youtube.com/watch?v=cx8QXJ67470)
+[UI inspiration 2](https://www.hellonesh.io/)
+[UI inspiration 3](https://chromewebstore.google.com/detail/fhmaofflmdfnaaojckoceiilpdbpdmjo?hl=es)
+
+
