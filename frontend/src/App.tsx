@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   return (
         <Router>
-	  <div className="min-h-scree bg-gray-50">
+	  <div className="min-h-screen bg-gray-50">
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/hardware" element={<Hardware />} />

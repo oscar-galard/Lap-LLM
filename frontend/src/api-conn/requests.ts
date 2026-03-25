@@ -19,7 +19,7 @@ export const sendHardwareSpecs = async (specs: HardwareSpecs): Promise<Response>
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to send specs: ${response.statusText}`);
+    throw new Error(`Error al enviar Specs: ${response.statusText}`);
   }
 
   return response;
