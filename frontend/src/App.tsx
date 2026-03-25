@@ -1,11 +1,18 @@
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Landing from './pages/Landing'
+import Hardware from './pages/Hardware'
+import './App.css'
 
 function App() {
   return (
-    <>
-      <Landing />
-    </>
+        <Router>
+	  <div className="min-h-scree bg-gray-50">
+                <Routes>
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/hardware" element={<Hardware />} />
+                </Routes>
+	  </div>
+        </Router>
   )
 }
 
