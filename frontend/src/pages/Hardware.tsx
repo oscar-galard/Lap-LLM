@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent } from 'react';
 import { type HardwareSpecs, sendHardwareSpecs } from '../api-conn/requests';
 import ReactMarkdown from 'react-markdown';
+import { TypeAnimation } from 'react-type-animation';
 
 interface BackendResponse {
   message: string;
@@ -68,23 +69,53 @@ function Hardware() {
   };
 
   return (
-    <div className="p-4 relative min-h-screen bg-gray-950 text-green-400 font-mono">
+    <div className="p-4 relative min-h-screen bg-transparent text-green-400 font-mono">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold underline mb-4 text-green-400 border-b border-green-800 pb-2">
-          Hardware Specs
+        <h1 className="text-3xl font-bold mb-4 text-green-400 border-b border-green-800 pb-2">
+          <TypeAnimation
+            sequence={['Hardware Specs', 1000]}
+            speed={50}
+            cursor={false}
+          />
         </h1>
-        
+
         <div className="mb-6 p-4 bg-gray-900 border border-green-800 rounded-lg shadow-[0_0_15px_rgba(34,197,94,0.2)]">
-          <p className="text-green-300 mb-3">Copia y ejecuta el siguiente script en tu Laptop</p>
-          
-          <div className="flex items-center gap-2 my-3">
-            <span 
-              className="cursor-pointer text-green-400 hover:text-green-300 transition-colors"
-              onClick={copyCommand}
-            >
-              📋
-            </span>
-            <code className="bg-gray-800 text-green-300 p-2 rounded text-sm font-mono border border-green-700 shadow-[0_0_10px_rgba(34,197,94,0.1)]">
+          <p className="text-green-300 mb-3 min-h-[1.5em]">
+            <TypeAnimation
+              sequence={[ 1000, 'Copia y ejecuta el siguiente script en tu Laptop', 1000]}
+              speed={70}
+              cursor={true}
+            />
+          </p>
+
+          <div className="flex items-center gap-3 my-4 group">
+            {/* Contenedor del Botón Neón */}
+            <div className="relative p-[2px] overflow-hidden rounded-lg flex items-center justify-center cursor-pointer active:scale-95 transition-transform" 
+                 onClick={copyCommand}>
+              
+              {/* Capa 1: El Brillo Rotativo (Luz Neón 80s) */}
+              <div className="absolute inset-[-1000%] animate-glow-rotate bg-[conic-gradient(from_90deg_at_50%_50%,#000_0%,#003300_40%,#00FF00_50%,#003300_60%,#000_100%)]"></div>
+
+              {/* Capa 2: Fondo del Botón (Crea el efecto de borde fino) */}
+              <div className="relative flex items-center justify-center bg-gray-900 rounded-[6px] px-3 py-2 w-full h-full">
+                <svg 
+                  className="w-5 h-5 text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                </svg>
+                <span className="ml-2 text-xs font-mono font-bold text-green-400 uppercase tracking-widest hidden group-hover:block">
+                  Copy
+                </span>
+              </div>
+            </div>
+
+            {/* El Comando (Terminal Style) */}
+            <code className="relative flex-1 bg-black/80 text-green-300 p-3 rounded border border-green-900/50 font-mono text-xs overflow-x-auto shadow-[inset_0_0_10px_rgba(0,255,0,0.05)]">
+              <span className="text-green-600 mr-2">$</span>
               curl -s https://raw.githubusercontent.com/oscar-galard/Lap-LLM/main/get_hostInfo.sh | bash -e
             </code>
           </div>
@@ -122,8 +153,8 @@ function Hardware() {
 
           {message && (
             <div className={`mt-4 p-4 rounded font-medium border ${
-              message.includes('Error') 
-                ? 'bg-red-900/30 text-red-300 border-red-700' 
+              message.includes('Error')
+                ? 'bg-red-900/30 text-red-300 border-red-700'
                 : 'bg-green-900/30 text-green-300 border-green-700'
             }`}>
               {message}
@@ -201,7 +232,7 @@ function Hardware() {
                   }}
                   className="bg-green-900 hover:bg-green-700 text-green-100 px-6 py-1.5 rounded font-mono text-sm border border-green-500 transition-colors shadow-[0_0_15px_rgba(34,197,94,0.2)] hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] font-bold"
                 >
-                  DESCARGAR
+                  DESCARGAR .md
                 </button>
               </div>
             </div>
