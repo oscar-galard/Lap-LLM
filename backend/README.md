@@ -82,7 +82,22 @@ CREATE EXTENSION IF NOT EXISTS vector;
 - `DATABASE_URL`: PostgreSQL connection string
 - `PDF_PATH`: Path to the research PDF file
 
-## Output example JSON
+## Curl Command and Output example JSON
+```bash
+curl -X POST "http://localhost:8000/hardware-specs/" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "cpu_model": "Intel Core i3-10110U",
+           "total_ram": 8192,
+           "used_ram": 3800,
+           "free_ram": 4392,
+           "os": "Ubuntu 24.04 LTS",
+           "free_storage": 52,
+           "gpu_model": "Intel Corporation CometLake-U GT2 [UHD Graphics]",
+           "is_dual_channel": false
+         }'
+```
+
 ```json
 {
 "message":"Hardware specifications registered successfully",
