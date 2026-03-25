@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from presentation.dto import HardwareSpecsDTO
-from domain.entities import HardwareSpecs
+from domain.entities import HardwareSpecs, ModelSpecs
 from application.use_cases import RegisterHardwareSpecs
 from infrastructure.repositories import InMemoryHardwareSpecsRepository, InMemoryModelSpecsRepository
+from application.vram_calculator import get_model_recommendations
 
 # Initialize repositories
 hardware_repo = InMemoryHardwareSpecsRepository()
@@ -35,3 +36,5 @@ async def get_models():
     model_specs = model_repo.get_model_specs(hardware_specs)
 
     return {"models": model_specs}
+
+

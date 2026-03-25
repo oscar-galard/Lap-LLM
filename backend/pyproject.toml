@@ -19,4 +19,5 @@ dependencies = [
     "python-dotenv>=1.0.1",
     "dotenv>=0.9.9",
     "pypdf>=6.9.2",
+    "pydantic>=2.12.5",
 ]

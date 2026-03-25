@@ -84,52 +84,47 @@ def load_and_store_pdf_content():
         return False
 
 # Create a prompt template for optimization recommendations
-def create_optimization_prompt() -> PromptTemplate:
-    """Create a prompt template for generating optimization recommendations"""
-    template = """
-    Eres un experto en optimización de LLMs para portátiles con recursos limitados.
+def create_optimization_prompt(vendor: str) -> PromptTemplate:
+    """Create a prompt template for generating optimization recommendations based on vendor"""
+    
+    template = f"""
+    Eres un experto en optimización de LLMs. Tu objetivo es dar una guía rápida, directa y accionable. No uses introducciones, ve directo al grano.
 
-    Basándote en las especificaciones de hardware y los hallazgos de la investigación, proporciona recomendaciones detalladas para ejecutar LLMs en este sistema.
+    Especificaciones de Hardware, Límites y Modelos Pre-calculados:
+    {{hardware_info}}
 
-    Especificaciones de Hardware:
-    {hardware_info}
+    Contexto de Investigación Extraído (RAG):
+    {{research_context}}
 
-    Información de Investigación:
-    {research_context}
-
-    Instrucciones (IMPORTANTE: Toda la respuesta debe estar en ESPAÑOL):
-    1. Analiza cuidadosamente las especificaciones de hardware.
-    2. Utiliza los hallazgos de la investigación para proporcionar recomendaciones precisas.
-    3. Para GPUs AMD:
-       - Indica que la RAM libre se puede utilizar al 90% de su capacidad para ejecutar LLMs.
-       - Proporciona recomendaciones de modelos específicos según la RAM disponible.
-    4. Para GPUs Intel:
-       - Indica que aproximadamente el 50% de la RAM total podría ser utilizable a través de PPGTT o GTT.
-       - Recomienda modelos de menos de 2GB de tamaño.
-       - Discute optimizaciones teóricas.
-       - Menciona los ajustes a nivel de BIOS (UMA) que suelen estar limitados a 2GB.
-    5. Proporciona recomendaciones concretas para la selección de modelos, métodos de cuantización y configuraciones.
-    6. Incluye cualquier advertencia o limitación basada en las restricciones del hardware.
-
-    Genera un informe de recomendaciones completo, bien estructurado y profesional en ESPAÑOL.
+    Instrucciones (Responde en ESPAÑOL usando viñetas y sé extremadamente conciso):
+    1. **Modelos a Utilizar:** 
+       - Limítate EXCLUSIVAMENTE a mencionar los modelos que ya vienen recomendados en las "Especificaciones de Hardware". NO inventes ni sugieras modelos nuevos. 
+       - Solo comenta brevemente por qué esos modelos caben en el "Presupuesto Efectivo para IA".
+    2. **Configuración del Sistema y GPU ({vendor}):** 
+       - Basándote ÚNICAMENTE en el "Contexto de Investigación", extrae y lista las configuraciones necesarias para este hardware.
+       - Si el contexto menciona parámetros del kernel (ej. ajustes de RAM/VRAM), variables de entorno, o configuraciones de BIOS necesarias para este fabricante, indícalas claramente.
+       - Si el contexto menciona flags de compilación o trucos específicos para esta arquitectura, lístalos.
     """
 
     return PromptTemplate.from_template(template)
 
 # Main function to process hardware info and generate recommendations
-def generate_optimization_recommendations(hardware_info: str, pdf_path: str) -> str:
+def generate_optimization_recommendations(hardware_info: str, vendor: str, pdf_path: str) -> str:
     """Generate optimization recommendations based on hardware specs and research"""
     try:
         # Initialize vector store and load PDF content if needed
         db = initialize_vector_store()
         load_and_store_pdf_content()
 
-        # Create the prompt template
-        prompt = create_optimization_prompt()
+        # Create the prompt template specifically for this vendor
+        prompt = create_optimization_prompt(vendor)
 
-        # Perform similarity search to get relevant context from the PDF
-        # This will retrieve the most relevant chunks based on the hardware info
-        relevant_docs = db.similarity_search(hardware_info, k=3)
+        # Perform similarity search filtering by platform (metadata tag added during chunking)
+        search_kwargs = {"k": 3}
+        if vendor in ["AMD", "Intel"]:
+            search_kwargs["filter"] = {"platform": vendor}
+
+        relevant_docs = db.similarity_search(hardware_info, **search_kwargs)
 
         # Get the content of the relevant documents
         research_context = "\n".join([doc.page_content for doc in relevant_docs])

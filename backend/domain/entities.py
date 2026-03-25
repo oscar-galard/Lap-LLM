@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, List
 
 @dataclass
 class HardwareSpecs:
@@ -16,4 +16,12 @@ class HardwareSpecs:
 class ModelSpecs:
     model_name: str
     quantization: str
-    offload_size: int
+    offload_size: float
+
+@dataclass
+class VRAMCalculationResult:
+    usable_vram: float  # GB
+    required_vram: float  # GB
+    ttm_pages: int  # Number of 4KB pages
+    recommended_models: List[ModelSpecs]
+    memory_info: str

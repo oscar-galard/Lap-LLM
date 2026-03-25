@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from presentation.api import app
-from presentation.adapters import InMemoryHardwareSpecsRepository, InMemoryModelSpecsRepository
+from infrastructure.repositories import InMemoryHardwareSpecsRepository, InMemoryModelSpecsRepository
 from application.use_cases import RegisterHardwareSpecs
 from infrastructure.langchain_integration import load_and_store_pdf_content
 

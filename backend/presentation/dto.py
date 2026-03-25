@@ -10,3 +10,4 @@ class HardwareSpecsDTO(BaseModel):
     free_storage: int
     gpu_model: str
     is_dual_channel: bool
+    performance_preference: Optional[str] = "trustability"  # "speed" or "trustability"
