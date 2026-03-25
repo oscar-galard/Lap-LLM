@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 from presentation.dto import HardwareSpecsDTO
 from domain.entities import HardwareSpecs, ModelSpecs
 from application.use_cases import RegisterHardwareSpecs
@@ -14,6 +15,14 @@ register_specs_use_case = RegisterHardwareSpecs(hardware_repo, model_repo)
 
 # Create FastAPI app
 app = FastAPI(title="LAP-LLM Backend API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 # Define routes
 @app.post("/hardware-specs/")
