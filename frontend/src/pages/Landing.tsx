@@ -72,14 +72,14 @@ function Landing() {
         <div className="grid md:grid-cols-2 gap-12">
           <div className="border border-fuchsia-500/40 p-6 space-y-6 text-green-400/90 bg-black/90 leading-relaxed">
             <p>
-              Las grandes corporaciones como <strong>Capsule corp, el Team Rocket</strong> y <strong>OpenAI</strong> quieren que creas que la IA local es solo para élites con hardware premium y te dicen que una laptop sirve solo para ver videos de <b>Midu y la Rosa de guadalupe</b> en Youtube, dejando como unico camino las suscripciones que cambian cada 3 segundos. <strong className="text-white">¡Es hora de recuperar tu hardware!</strong>
+              Las grandes corporaciones como <strong>Capsule Corp, el Team Rocket</strong> y <strong>OpenAI</strong> quieren que creas que la IA local es solo para élites con hardware premium y te dicen que una laptop sirve solo para ver tus videos favoritos de <b>Midudev y la Rosa de guadalupe</b> en Youtube, dejando como unico camino las suscripciones que cambian cada 3 segundos. <strong className="text-white">¡Es hora de recuperar tu hardware!</strong>
             </p>
             <p>
-            Con <strong className="text-green-500 underline">Lap-LLM</strong>, usamos pura ingeniería y algebra marsupial sobre sistemas Linux para aplicar un hack <code className="bg-green-900/30 px-2 py-0.5 rounded text-white">[ "$igpu" == "amd" ] && amdttm || [ "$igpu" == "intel" ] && gtt</code>, que aprovecha como el kernel Linux maneja la memoria. Básicamente, engañamos al sistema para que trate tu RAM como VRAM súper rápida creando un pool de memoria parecido al de las MAC.
+            Con <strong className="text-green-500 underline">Lap-LLM</strong>, usamos pura ingeniería y algebra marsupial sobre <strong>sistemas GNU/Linux</strong> para aplicar un hack <code className="bg-green-900/30 px-2 py-0.5 rounded text-white">[ "$igpu" == "amd" ] && amdttm || [ "$igpu" == "intel" ] && gtt</code>, que aprovecha como el <strong>kernel</strong> maneja la memoria. Básicamente, engañamos al sistema para que trate tu RAM como VRAM súper rápida creando un pool de memoria parecido al de las MAC.
             </p>
           </div>
           <div className="bg-green-950/20 border-l-4 border-green-500 p-8 flex items-center text-xl text-white shadow-[inset_0_0_20px_rgba(34,197,94,0.1)]">
-            "Es como darle una ametralladora a un tiburon!... ¡y funciona!"
+            "Es como darle una ametralladora a un tiburon!... ¡Esta Extremo!"
           </div>
         </div>
       </section>

@@ -99,11 +99,12 @@ def create_optimization_prompt(vendor: str) -> PromptTemplate:
     Instrucciones (Responde en ESPAÑOL usando viñetas y sé extremadamente conciso):
     1. **Modelos a Utilizar:** 
        - Limítate EXCLUSIVAMENTE a mencionar los modelos que ya vienen recomendados en las "Especificaciones de Hardware". NO inventes ni sugieras modelos nuevos. 
-       - Solo comenta brevemente por qué esos modelos caben en el "Presupuesto Efectivo para IA".
+       - Solo comenta por qué esos modelos caben en el "Presupuesto Efectivo para IA".
     2. **Configuración del Sistema y GPU ({vendor}):** 
        - Basándote ÚNICAMENTE en el "Contexto de Investigación", extrae y lista las configuraciones necesarias para este hardware.
        - Si el contexto menciona parámetros del kernel (ej. ajustes de RAM/VRAM), variables de entorno, o configuraciones de BIOS necesarias para este fabricante, indícalas claramente.
        - Si el contexto menciona flags de compilación o trucos específicos para esta arquitectura, lístalos.
+    3. **Resumen** Breve resumen con la informacion importante para el usuario, por ejemplo dependiendo del ({vendor}) informacion relacionada a amdttm (amd) o gtt/ppgtt(intel), que es? y como funciona para crear nuestro pool de memoria. 
     """
 
     return PromptTemplate.from_template(template)
