@@ -1,5 +1,5 @@
 # lap-llm 💻🧠
-
+![Lap-LLM imagen](https://i.postimg.cc/QNwYHtnf/2026-03-25-215323-scrot.png)
 **Ejecuta IA real en la laptop que ya tienes.**
 
 ---
