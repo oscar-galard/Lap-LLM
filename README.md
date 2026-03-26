@@ -1,77 +1,70 @@
-# lap-llm 💻🧠
+# lap-llm 💻🧠 [Hacker Edition]
+
 ![Lap-LLM imagen](https://i.postimg.cc/QNwYHtnf/2026-03-25-215323-scrot.png)
-**Ejecuta IA real en la laptop que ya tienes.**
+
+> **"Hackeando los límites del Kernel para ejecutar modelos de 30B en la laptop que ya tienes."**
 
 ---
 
-## Por qué existe
+## 🚀 La Visión: Soberanía o Renta
 
-¿Qué pasa si no tienes una computadora gamer?  
-¿Qué pasa si no tienes una GPU dedicada?  
-¿Qué pasa si lo único que tienes es una laptop normal?
+¿Qué pasa si no tienes una GPU de $2,000 USD? ¿Qué pasa si lo único que tienes es una laptop normal con gráficos integrados (iGPU)? 
 
-¿Aun así puedes ejecutar modelos modernos de IA de forma local?
+En la mayor parte de internet, la respuesta es: "Paga una suscripción o usa la nube". **Lap-LLM dice: NO.**
 
-En la mayor parte de internet, la respuesta parece ser NO.
+Logré ejecutar **Qwen3-Coder** localmente en mi laptop y lo uso cada día para programar software real. No es solo un reto técnico; es **Soberanía Digital**. Ser dueño de tus herramientas en lugar de rentarlas.
 
-Pero logré ejecutar **Qwen3-Coder localmente en mi laptop**, y lo uso todos los días para programar software real.  
-No es tan rápido como los modelos en la nube, ni tan potente.  
-Pero funciona. Y eso cambia todo.
-
-Ejecutar IA local no es solo un reto técnico.  
-Es una forma de **soberanía digital**.
-
-Significa que puedes:
-
-- Usar IA sin enviar tus datos a la nube  
-- Seguir trabajando aunque las APIs cambien, recortes o subidas de precio en suscripciones.  
-- Entender cómo funcionan realmente estos sistemas  
-- Ser dueño de tus herramientas en lugar de rentarlas  
-
-Este proyecto reúne todo lo que he investigado para hacer que la IA local sea usable en hardware modesto — especialmente laptops, GPUs integradas y sistemas Linux.
-
-Mi objetivo es simple:
-
-> Ayudar a personas como yo a ejecutar IA útil de forma local, sin necesitar hardware costoso.
-
-Si te interesa la IA, la privacidad, el software libre o simplemente llevar tu máquina al límite, este proyecto es para ti.
+Este proyecto es la culminación de meses de investigación en **arquitectura de memoria unificada (UMA)**, optimización de drivers en Linux y despliegue de modelos cuantizados en hardware modesto.
 
 ---
 
-## Qué hará lap-llm
+## 🧠 El Motor: Knowledge-Base RAG
 
-lap-llm será un asesor que analiza tu hardware y te dice:
+A diferencia de un validador estático, **lap-llm** utiliza un sistema de **Generación Aumentada por Recuperación (RAG)**. El asistente no "adivina"; consulta una base de conocimientos técnica curada por meses que incluye:
 
-- Qué modelos de lenguaje puedes ejecutar de forma realista  
-- Qué cuantizaciones son recomendables  
-- Rendimiento esperado  
-- Tamaño de contexto óptimo  
-- Si vale la pena usar aceleración por GPU  
-- Consejos prácticos de optimización  
-- Cómo instalar todo con la menor fricción posible  
-
-No son benchmarks teóricos.  
-No son suposiciones basadas en servidores.
-
-**Es orientación real para laptops reales.**
+* **Papers de Ingeniería de Memoria:** Estrategias para bypass de límites de BIOS en asignación de VRAM.
+* **Linux Kernel Tuning:** Documentación profunda sobre `amdgpu.pages_limit`, `ttm_pages_limit` y gestión de buffers GTT/PPGTT.
+* **Lista Curada de Modelos:** Una lista curada personalmente, con modelos pensados para el programador.
+* **Soberanía de Hardware:** Guías de configuración para ROCm/SYCL y Ollama optimizados para iGPUs.
 
 ---
 
-## Estado
+## 🛠️ Qué hace lap-llm
 
-🚧 En desarrollo — creado para la Hackatón CubePath 2026.
+![Lap-LLM workflow](https://i.postimg.cc/MZ0221Gt/2026-03-25-215351-scrot.png)
+
+Es un **Orquestador de Viabilidad** que analiza tu hardware y, mediante el RAG, te entrega un diagnóstico de grado de ingeniería:
+
+* **VRAM Expansion Logic:** Te guía para reclamar hasta el 90% de tu RAM física como memoria de video funcional.
+* **Model Selection Matrix:** Filtra modelos específicos (como Qwen3, Phi-4 o MoE avanzados) que tu máquina puede manejar con dignidad.
+* **Diagnóstico de Kernel:** Genera serie de recomendaciones para tunear tu sistema (Gentoo, Arch, Ubuntu) y optimizar el driver de video.
+* **Optimización de Contexto:** Calcula el tamaño de ventana (KV Cache) óptimo para evitar el *swapping* y mantener la velocidad.
+
+> **"No son benchmarks teóricos de servidor. Es orientación real para laptops reales."**
 
 ---
 
-## Filosofía
+## 🔧 Hardcore Features
 
-La IA local no debería estar reservada para quienes tienen estaciones de trabajo de miles de dólares.
-
-Si tu computadora puede programar, navegar o reproducir video…  
-debería poder ejecutar IA útil también.
+* **Análisis Directo del sistema:** Lee el estado real de tu hardware, no lo que dice el marketing.
+* **Integración ROCm/Ollama:** Te da las recomendaciones para optimizar tu sistema.
+* **Algebraic Core:** El cálculo de los límites de asignación de RAM, el tamaño del KV Cache y la ventana de contexto no son "opiniones" de un LLM. He desarrollado un motor algebraico que resuelve estas variables de forma determinista antes de la inferencia, asegurando estabilidad y evitando el *Kernel Panic*.
 
 ---
 
-## Licencia
+## 🚧 Estado del Proyecto
 
-MIT License.
+Actualmente en desarrollo activo para la **Hackatón CubePath 2026**.  
+*Basado en la investigación de optimización de memoria para el proyecto de IA.*
+
+---
+
+## ⚖️ Filosofía
+
+Si tu computadora puede programar, navegar o reproducir video... **debería poder pensar.** La IA local no es un lujo, es un derecho técnico. **Lap-LLM es el interruptor para despertar tu hardware.**
+
+---
+
+## 📄 Licencia
+
+MIT License. 2026 Oscar Rodrigo Gallardo López.
