@@ -33,7 +33,7 @@ A diferencia de un validador estático, **lap-llm** utiliza un sistema de **Gene
 
 ## 🛠️ Qué hace lap-llm
 
-![Lap-LLM workflow](https://i.postimg.cc/MZ0221Gt/2026-03-25-215351-scrot.png)
+![Lap-LLM workflow](https://i.postimg.cc/qq0Q8VGL/2026-03-27-152348-scrot.png)
 
 Es un **Orquestador de Viabilidad** que analiza tu hardware y, mediante el RAG, te entrega un diagnóstico de grado de ingeniería:
 

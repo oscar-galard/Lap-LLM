@@ -119,13 +119,16 @@ function Hardware() {
         </h1>
 
         <div className="mb-6 p-4 bg-gray-900 border border-green-800 rounded-lg shadow-[0_0_15px_rgba(34,197,94,0.2)]">
-          <p className="text-green-300 mb-3 min-h-[1.5em]">
-            <TypeAnimation
-              sequence={[ 1000, 'Copia y ejecuta el siguiente script en tu Laptop', 1000]}
-              speed={70}
-              cursor={true}
-            />
-          </p>
+          <div className="flex items-center gap-3 mb-3">
+            <span className="bg-green-500 text-black font-bold px-2 py-1 rounded text-sm">PASO 1</span>
+            <p className="text-green-300 min-h-[1.5em] font-bold">
+              <TypeAnimation
+                sequence={[ 1000, 'Copia y ejecuta el siguiente script en la terminal de tu Laptop', 1000]}
+                speed={70}
+                cursor={true}
+              />
+            </p>
+          </div>
 
           <div className="flex items-center gap-3 my-4 group">
             {/* Contenedor del Botón Neón */}
@@ -136,7 +139,7 @@ function Hardware() {
               <div className="absolute inset-[-1000%] animate-glow-rotate bg-[conic-gradient(from_90deg_at_50%_50%,#000_0%,#003300_40%,#00FF00_50%,#003300_60%,#000_100%)]"></div>
 
               {/* Capa 2: Fondo del Botón (Crea el efecto de borde fino) */}
-              <div className="relative flex items-center justify-center bg-gray-900 rounded-[6px] px-3 py-2 w-full h-full">
+              <div className="relative flex items-center justify-center bg-gray-900 rounded-[6px] px-3 py-2 w-full h-full hover:bg-gray-800 transition-colors">
                 <svg 
                   className="w-5 h-5 text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]" 
                   fill="none" 
@@ -147,7 +150,7 @@ function Hardware() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
                 </svg>
                 <span className="ml-2 text-xs font-mono font-bold text-green-400 uppercase tracking-widest hidden group-hover:block">
-                  Copy
+                  Copiar
                 </span>
               </div>
             </div>
@@ -160,10 +163,18 @@ function Hardware() {
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 p-4 bg-gray-900/50 border border-green-800/50 rounded-lg shadow-[0_0_10px_rgba(34,197,94,0.05)] relative overflow-hidden">
+          <div className="flex items-center gap-3 mb-4 relative z-10">
+            <span className="bg-cyan-600 text-black font-bold px-2 py-1 rounded text-sm drop-shadow-[0_0_5px_rgba(8,145,178,0.8)]">PASO 2</span>
+            <p className="text-cyan-300 font-bold uppercase tracking-wide">
+              Pega el resultado obtenido aquí abajo:
+            </p>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/10 to-transparent pointer-events-none"></div>
+          
           <textarea
-            placeholder="Pega aquí la salida del script"
-            className="w-full font-mono text-sm bg-gray-900 text-green-300 border border-green-700 rounded-lg p-4 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-colors resize-none"
+            placeholder="[ Salida del script: CPU, RAM, GPU, OS... ]"
+            className="relative z-10 w-full font-mono text-sm bg-black/80 text-cyan-300 border-2 border-cyan-800/50 rounded-lg p-5 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none transition-all resize-none placeholder-cyan-800/70 shadow-[inset_0_0_15px_rgba(8,145,178,0.1)]"
             rows={8}
             onChange={handlePaste}
           />

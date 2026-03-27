@@ -60,7 +60,7 @@ function Landing() {
         </section>
       {/* section problem and solution*/}
       <section className="py-20 px-6 max-w-6xl mx-auto border-t border-green-500/20">
-        <h2 className="text-3xl font-black mb-12 text-cyan-400 uppercase drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] flex items-center gap-4">
+        <h2 className="text-3xl font-black mb-12 text-cyan-400 uppercase drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] flex items-center gap-4 min-h-[4rem] md:min-h-[3rem]">
             <span className="text-fuchsia-500 drop-shadow-[0_0_10px_rgba(217,70,239,0.8)]">✨</span> 
             <TypeAnimation 
               sequence={[ 2500, 'El Muro de la VRAM... y como lo derribamos', 1000]} 
@@ -90,7 +90,7 @@ function Landing() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(217,70,239,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(217,70,239,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" style={{ perspective: '500px', transform: 'rotateX(60deg) scale(2.5)', transformOrigin: 'top center', opacity: 0.3 }}></div>
         
         <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-3xl font-black mb-12 text-cyan-400 uppercase drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] flex items-center gap-4">
+          <h2 className="text-3xl font-black mb-12 text-cyan-400 uppercase drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] flex items-center gap-4 min-h-[4rem] md:min-h-[3rem]">
             <span className="text-fuchsia-500 drop-shadow-[0_0_10px_rgba(217,70,239,0.8)]">✨</span> 
             <TypeAnimation 
               sequence={[ 6000, 'Tus Nuevos Superpoderes de IA Local', 1000]} 
@@ -142,6 +142,43 @@ function Landing() {
           </div>
         </div>
       </section>
+
+      {/* Video Section */}
+      <section className="py-20 px-6 max-w-6xl mx-auto border-t border-fuchsia-500/30 relative z-10">
+        <h2 className="text-3xl font-black mb-12 text-cyan-400 uppercase drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] flex items-center gap-4">
+          <span className="text-fuchsia-500 drop-shadow-[0_0_10px_rgba(217,70,239,0.8)]">🎥</span>
+          Los Orígenes de la Investigación
+        </h2>
+        
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="border border-fuchsia-500/40 p-6 space-y-6 text-green-400/90 bg-black/80 leading-relaxed shadow-[0_0_15px_rgba(217,70,239,0.15)] backdrop-blur-sm">
+            <p>
+              Comence a investigar por una necesidad real. Hace unos meses, documenté mi primer acercamiento en <strong className="text-white">la IA local</strong> en mi laptop con gráficos integrados. 
+            </p>
+            <p>
+              En este video hablo de los fundamentos que dieron pie a este estudio, pero <strong className="text-fuchsia-400 font-bold">¡ojo!</strong>, en ese entonces aún no había descubierto el hack de modificar <code className="bg-green-900/40 px-1 py-0.5 rounded text-cyan-300 text-sm">amdttm.pages_limit</code>.
+            </p>
+            <p>
+              Míralo para entender de dónde venimos, y usa <strong className="text-green-500 underline">Lap-LLM</strong> para ver hasta dónde hemos llegado. 
+            </p>
+          </div>
+          
+          <div className="bg-black border-2 border-cyan-400/50 rounded-sm overflow-hidden shadow-[0_0_20px_rgba(34,211,238,0.3)] relative aspect-video group">
+            <div className="absolute inset-0 border-2 border-transparent group-hover:border-fuchsia-500/50 transition-colors pointer-events-none z-10"></div>
+            <iframe 
+              width="100%" 
+              height="100%" 
+              src="https://www.youtube.com/embed/nL95O_e3Vwc" 
+              title="Ollama + IA en AMD iGPU" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+              className="relative z-0"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
       </main>
 
     </div>

@@ -10,21 +10,30 @@
 }
 
 html, body {
-  min-height: 100%;
-  height: 100%;
+  min-height: 100vh;
 }
 
 body {
   @apply font-sans;
   background-color: #000000;
-  background-image: radial-gradient(#11581E, #041607);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
   color: rgba(128, 255, 128, 0.8);
   text-shadow:
     0 0 1ex rgba(51, 255, 51, 0.5),
     0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: radial-gradient(#11581E, #041607);
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .crt-overlay {
