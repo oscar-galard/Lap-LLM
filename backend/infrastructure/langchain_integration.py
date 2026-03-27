@@ -56,7 +56,7 @@ def load_and_store_pdf_content():
             separators=["\n\n", "\n", " ", ""]
         )
 
-        # Apply custom chunking logic from chunking.md
+        # Apply custom chunking logic
         chunks = []
         for doc in documents:
             # Split the document text
@@ -64,16 +64,25 @@ def load_and_store_pdf_content():
 
             # Apply custom metadata tagging
             for i, split_doc in enumerate(split_docs):
-                metadata = {"chunk_id": i}
+                content = split_doc.page_content.lower()
 
-                # Tag based on content
-                if "AMD" in split_doc.page_content or "TTM" in split_doc.page_content:
-                    metadata["platform"] = "AMD"
-                elif "Intel" in split_doc.page_content or "PPGTT" in split_doc.page_content:
-                    metadata["platform"] = "Intel"
+                is_amd = any(keyword in content for keyword in ["amd", "ttm", "rocm", "gfx90c", "gfx900", "vega", "amdgpu"])
+                is_intel = any(keyword in content for keyword in ["intel", "ppgtt", "sycl", "oneapi", "i915", "gtt", "gem"])
 
-                split_doc.metadata = metadata
-                chunks.append(split_doc)
+                if not is_amd and not is_intel:
+                    split_doc.metadata = {"chunk_id": i, "platform": "General"}
+                    chunks.append(split_doc)
+                else:
+                    if is_amd:
+                        from copy import deepcopy
+                        amd_doc = deepcopy(split_doc)
+                        amd_doc.metadata = {"chunk_id": i, "platform": "AMD"}
+                        chunks.append(amd_doc)
+                    if is_intel:
+                        from copy import deepcopy
+                        intel_doc = deepcopy(split_doc)
+                        intel_doc.metadata = {"chunk_id": i, "platform": "Intel"}
+                        chunks.append(intel_doc)
 
         # Store chunks in vector database
         db.add_documents(chunks)
@@ -104,13 +113,16 @@ def create_optimization_prompt(vendor: str) -> PromptTemplate:
        - Basándote ÚNICAMENTE en el "Contexto de Investigación", extrae y lista las configuraciones necesarias para este hardware.
        - Si el contexto menciona parámetros del kernel (ej. ajustes de RAM/VRAM), variables de entorno, o configuraciones de BIOS necesarias para este fabricante, indícalas claramente.
        - Si el contexto menciona flags de compilación o trucos específicos para esta arquitectura, lístalos.
-    3. **Resumen** Breve resumen con la informacion importante para el usuario, por ejemplo dependiendo del ({vendor}) informacion relacionada a amdttm (amd) o gtt/ppgtt(intel), que es? y como funciona para crear nuestro pool de memoria. 
+    3. **Guía de Configuración Paso a Paso ({vendor}):** 
+       - Proporciona una guía clara con pasos específicos (incluyendo comandos si aplican o se deducen del contexto) sobre qué debe hacer el usuario a continuación.
+       - Explica específicamente cómo configurar el pool de memoria para ESTE fabricante (por ejemplo, TTM para AMD o GTT/PPGTT para Intel).
+       - Explica brevemente qué es esta tecnología específica de {vendor} y cómo ajustarla para maximizar la VRAM en este sistema. NO menciones tecnologías de otros fabricantes.
     """
 
     return PromptTemplate.from_template(template)
 
 # Main function to process hardware info and generate recommendations
-def generate_optimization_recommendations(hardware_info: str, vendor: str, pdf_path: str) -> str:
+def generate_optimization_recommendations(hardware_info: str, vendor: str) -> str:
     """Generate optimization recommendations based on hardware specs and research"""
     try:
         # Initialize vector store and load PDF content if needed
@@ -120,23 +132,54 @@ def generate_optimization_recommendations(hardware_info: str, vendor: str, pdf_p
         # Create the prompt template specifically for this vendor
         prompt = create_optimization_prompt(vendor)
 
-        # Perform similarity search filtering by platform (metadata tag added during chunking)
-        search_kwargs = {"k": 3}
-        if vendor in ["AMD", "Intel"]:
-            search_kwargs["filter"] = {"platform": vendor}
+        # Mejorar el query de búsqueda: en lugar de buscar por las especificaciones,
+        # buscamos explícitamente conceptos de optimización para el hardware.
+        search_query = f"Configuración, optimización de memoria VRAM, parámetros del kernel y pool de memoria para GPU {vendor}"
+        if vendor == "AMD":
+            search_query += " ROCm amdttm"
+        elif vendor == "Intel":
+            search_query += " GTT PPGTT i915"
 
-        relevant_docs = db.similarity_search(hardware_info, **search_kwargs)
+        # Perform similarity search filtering by platform (metadata tag added during chunking)
+        search_kwargs = {"k": 5}
+        
+        # Primero intentamos buscar con el filtro estricto por plataforma
+        filter_kwargs = search_kwargs.copy()
+        if vendor in ["AMD", "Intel"]:
+            filter_kwargs["filter"] = {"platform": vendor}
+
+        relevant_docs = db.similarity_search(search_query, **filter_kwargs)
+        
+        # Si el filtro estricto no devuelve resultados (por ejemplo, si los chunks no se taggearon bien),
+        # hacemos un fallback sin filtro
+        if not relevant_docs:
+            relevant_docs = db.similarity_search(search_query, **search_kwargs)
 
         # Get the content of the relevant documents
         research_context = "\n".join([doc.page_content for doc in relevant_docs])
 
         # Create a chain that combines the prompt with the retrieved context
         from langchain_openai import ChatOpenAI
-        llm = ChatOpenAI(
-            model="deepseek-chat", 
-            api_key=settings.DEEPSEEK_API_KEY, 
-            base_url="https://api.deepseek.com/v1"
-        )
+        
+        # Select LLM based on provider setting
+        if settings.LLM_PROVIDER.lower() == "openrouter":
+            llm = ChatOpenAI(
+                model=settings.OPENROUTER_MODEL,
+                api_key=settings.OPENROUTER_API_KEY,
+                base_url="https://openrouter.ai/api/v1",
+                default_headers={
+                    "HTTP-Referer": "https://vestaagentic.com", # Required by OpenRouter for some free models
+                    "X-Title": "LAP-LLM Project"
+                }
+            )
+        else:
+            # Default to DeepSeek
+            llm = ChatOpenAI(
+                model="deepseek-chat", 
+                api_key=settings.DEEPSEEK_API_KEY, 
+                base_url="https://api.deepseek.com/v1"
+            )
+            
         chain = prompt | llm | StrOutputParser()
 
         # Generate the response using the chain

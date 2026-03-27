@@ -1,0 +1,45 @@
+services:
+  db:
+    image: pgvector/pgvector:pg15
+    container_name: lap-llm-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_123}
+      POSTGRES_DB: ${POSTGRES_DB:-auth_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+    networks:
+      - hacking_time
+
+  api:
+    build: .
+    image: api-lap-llm:latest
+    container_name: api-llm
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-admin}:${POSTGRES_PASSWORD:-change_me_123}@db:5432/${POSTGRES_DB:-auth_db}
+      PORT: ${PORT:-8080}
+      DEBUG: ${DEBUG:-False}
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://vestaagentic.com}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    depends_on:
+      - db
+    networks:
+      - hacking_time
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api-llm.rule=Host(`lap-api.vestaagentic.com`)"
+      - "traefik.http.routers.api-llm.entrypoints=websecure"
+      - "traefik.http.routers.api-llm.tls=true"
+      - "traefik.http.routers.api-llm.tls.certresolver=le"
+      - "traefik.http.routers.api-llm.service=api-llm-service"
+      - "traefik.http.services.api-llm-service.loadbalancer.server.port=8080"
+networks:
+  hacking_time:
+    external: true
+
+volumes:
+  postgres_data:

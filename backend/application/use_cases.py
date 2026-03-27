@@ -52,8 +52,7 @@ class RegisterHardwareSpecs:
         # We now pass the detailed memory_info instead of a basic string
         recommendations = generate_optimization_recommendations(
             memory_info,
-            vendor,
-            "/home/oscar/projects/lap-llm/backend/Inferencia-LLM-en-dispositivos.pdf"
+            vendor
         )
 
         return models, memory_info, recommendations

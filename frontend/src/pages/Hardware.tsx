@@ -20,7 +20,7 @@ function Hardware() {
     const rawText = e.target.value;
     const ramMatch = rawText.match(/RAM:\s*(\d+)\/(\d+)\s*\((\d+)\s*free\)/);
     const storageMatch = rawText.match(/Disk free:\s*(\d+)/);
-    const isDual = rawText.includes("Detected via SMBIOS");
+    const isDual = /Dual.*Channel.*detected/i.test(rawText);
 
     const parsedSpecs: HardwareSpecs = {
       cpu_model: rawText.match(/CPU:\s*(.*)/)?.[1]?.trim() || "Unknown CPU",
@@ -142,7 +142,7 @@ function Hardware() {
           >
             {isSending ? (
               <span className="flex items-center gap-2">
-                <span className="animate-spin">⏳</span> Enviando...
+                <span className="animate-spin">█</span> Enviando...
               </span>
             ) : (
               <span className="flex items-center gap-2">
@@ -165,7 +165,7 @@ function Hardware() {
         {specs && (
           <details className="mb-6">
             <summary className="cursor-pointer text-sm text-green-500 hover:text-green-300 font-medium flex items-center gap-2">
-              <span className="animate-pulse">▶</span> Ver JSON crudo
+              <span className="animate-pulse">▶</span> Ver RAW JSON 
             </summary>
             <pre className="mt-2 p-4 bg-gray-900 text-green-400 rounded-lg text-xs overflow-auto shadow-inner border border-green-800">
               {JSON.stringify(specs, null, 2)}

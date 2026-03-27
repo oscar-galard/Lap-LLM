@@ -15,7 +15,7 @@ class InMemoryHardwareSpecsRepository(HardwareSpecsRepository):
 class InMemoryModelSpecsRepository(ModelSpecsRepository):
     def __init__(self):
         self.models = []
-        self.load_models_from_json("/home/oscar/projects/lap-llm/backend/infrastructure/models.json")
+        self.load_models_from_json("/app/infrastructure/models.json")
 
     def load_models_from_json(self, json_file_path: str):
         # Load models from JSON file (properly formatted JSON array)

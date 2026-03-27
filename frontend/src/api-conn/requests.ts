@@ -1,3 +1,5 @@
+const BASE_URL = 'https://lap-api.vestaagentic.com';
+
 export interface HardwareSpecs {
   cpu_model: string;
   total_ram: number;
@@ -10,7 +12,7 @@ export interface HardwareSpecs {
 }
 
 export const sendHardwareSpecs = async (specs: HardwareSpecs): Promise<Response> => {
-  const response = await fetch('http://localhost:8000/hardware-specs/', {
+    const response = await fetch(`${BASE_URL}/hardware-specs/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

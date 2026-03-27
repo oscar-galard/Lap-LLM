@@ -21,7 +21,10 @@ grep -E "^PRETTY_NAME" /etc/os-release | cut -d= -f2 | tr -d '"'
 
 # Check if we can determine channel configuration
 if command -v dmidecode >/dev/null 2>&1; then
-    if dmidecode -t memory | grep -q "Channel" 2>/dev/null; then
+    if dmidecode -t memory 2>/dev/null | grep -q "CHANNEL A" && \
+       dmidecode -t memory 2>/dev/null | grep -q "CHANNEL B"; then
+        echo "RAM Channel: Dual Channel detected"
+    elif dmidecode -t memory 2>/dev/null | grep -q "Channel"; then
         echo "RAM Channel: Detected via SMBIOS"
     else
         echo "RAM Channel: Not detected"

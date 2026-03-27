@@ -5,6 +5,7 @@ from domain.entities import HardwareSpecs, ModelSpecs
 from application.use_cases import RegisterHardwareSpecs
 from infrastructure.repositories import InMemoryHardwareSpecsRepository, InMemoryModelSpecsRepository
 from application.vram_calculator import get_model_recommendations
+from infrastructure.settings import settings
 
 # Initialize repositories
 hardware_repo = InMemoryHardwareSpecsRepository()
@@ -16,12 +17,15 @@ register_specs_use_case = RegisterHardwareSpecs(hardware_repo, model_repo)
 # Create FastAPI app
 app = FastAPI(title="LAP-LLM Backend API")
 
+# Parse CORS origins
+origins = [origin.strip() for origin in settings.CORS_ORIGINS.split(",")] if settings.CORS_ORIGINS else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Define routes

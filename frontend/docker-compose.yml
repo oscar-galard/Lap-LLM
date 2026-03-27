@@ -1,0 +1,26 @@
+services:
+  frontend:
+    image: lap-llm:latest
+    container_name: lap-llm
+    restart: unless-stopped
+    networks:
+      - hacking_time
+
+    labels:
+      - "traefik.enable=true"
+
+      # Router
+      - "traefik.http.routers.lap-llm.rule=Host(`lap-llm.vestaagentic.com`)"
+      - "traefik.http.routers.lap-llm.entrypoints=websecure"
+      - "traefik.http.routers.lap-llm.tls=true"
+      - "traefik.http.routers.lap-llm.tls.certresolver=le"
+
+      # Servicio al que apunta el router
+      - "traefik.http.routers.lap-llm.service=lap-llm-service"
+
+      # Puerto interno del contenedor (CORRECTO)
+      - "traefik.http.services.lap-llm-service.loadbalancer.server.port=80"
+
+networks:
+  hacking_time:
+    external: true

@@ -50,7 +50,7 @@ const Layout = ({ children }: LayoutProps) => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="https://github.com/oscar-galard/Lap-LLM/blob/main/backend/Inferencia-LLM-en-dispositivos.pdf" target="_blank" className="hover:text-white transition-colors">./Documento RAG</a>
+            <a href="https://drive.google.com/file/d/1Z46nxG2am428YQOuAzO8zmp-07UpTr_i/view?usp=sharing" target="_blank" className="hover:text-white transition-colors">./Documento RAG</a>
             <Link to="/hardware" className="bg-green-500 text-black px-6 py-2 rounded-md font-bold hover:bg-green-400 transition-all shadow-[0_0_15px_rgba(34,197,94,0.4)]">
               Analizar mi Hardware!
             </Link>
@@ -62,7 +62,7 @@ const Layout = ({ children }: LayoutProps) => {
       {isMenuOpen && (
         <div className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center space-y-8 md:hidden border-b border-green-500">
           <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-2xl hover:text-green-400">~Lap-llm</Link>
-          <a href="https://github.com/oscar-galard/Lap-LLM/blob/main/backend/Inferencia-LLM-en-dispositivos.pdf" target="_blank" onClick={() => setIsMenuOpen(false)} className="text-2xl hover:text-white">Documento RAG</a>
+          <a href="https://drive.google.com/file/d/1Z46nxG2am428YQOuAzO8zmp-07UpTr_i/view?usp=sharing" target="_blank" onClick={() => setIsMenuOpen(false)} className="text-2xl hover:text-white">Documento RAG</a>
           <Link to="/hardware" onClick={() => setIsMenuOpen(false)} className="bg-green-500 text-black px-8 py-3 rounded-md text-xl font-bold">
             EJECUTAR_ANALISIS
           </Link>
@@ -115,6 +115,9 @@ const Layout = ({ children }: LayoutProps) => {
               </Link>
               <a href="https://github.com/oscar-galard/Lap-LLM" target="_blank" className="text-green-400 hover:text-green-300 text-sm transition-colors">
                 GitHub
+              </a>
+              <a href="https://www.upwork.com/freelancers/~01b36188f36195a6fd" target="_blank" className="text-green-400 hover:text-green-300 text-sm transition-colors">
+                Mi Upwork
               </a>
             </div>
           </div>
