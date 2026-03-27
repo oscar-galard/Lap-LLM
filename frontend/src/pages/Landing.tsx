@@ -129,10 +129,10 @@ function Landing() {
             <div className="md:col-span-2 lg:col-span-2 border-2 border-cyan-400 p-8 bg-cyan-950/40 hover:bg-cyan-900/50 transition-all duration-300 group shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:shadow-[0_0_50px_rgba(34,211,238,0.6)] backdrop-blur-md relative overflow-hidden flex flex-col justify-center animate-pulse-slow">
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-cyan-400 opacity-80"></div>
               <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-fuchsia-500 blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-              <div className="relative z-10 flex items-start gap-6">
-                <div className="text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform drop-shadow-[0_0_15px_rgba(217,70,239,0.8)]">🤖</div>
+              <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+                <div className="text-5xl sm:text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform drop-shadow-[0_0_15px_rgba(217,70,239,0.8)]">🤖</div>
                 <div>
-                  <h3 className="text-3xl font-black mb-3 text-cyan-300 uppercase tracking-widest drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">Sistema RAG Inteligente</h3>
+                  <h3 className="text-2xl sm:text-3xl font-black mb-3 text-cyan-300 uppercase tracking-widest drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">Sistema RAG Inteligente</h3>
                   <p className="text-fuchsia-100 text-lg leading-relaxed">
                     El verdadero tazo dorado. Utilizamos <strong className="text-fuchsia-400">RAG (Retrieval-Augmented Generation)</strong> para analizar un estudio basado en papers y documentos técnicos . El resultado: <strong className="text-cyan-400">Recomendaciones milimétricas y personalizadas</strong> basadas en la arquitectura exacta de tu hardware.
                   </p>

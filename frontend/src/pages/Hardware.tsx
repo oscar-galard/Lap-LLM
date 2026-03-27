@@ -18,20 +18,59 @@ function Hardware() {
 
   const handlePaste = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const rawText = e.target.value;
+
+    if (!rawText.trim()) {
+      setSpecs(null);
+      setMessage('');
+      return;
+    }
+
+    // Prevención básica de inyección: limitar longitud
+    if (rawText.length > 2000) {
+      setMessage("Error: El texto pegado es demasiado largo. Posible intento de inyección.");
+      setSpecs(null);
+      return;
+    }
+
+    // Validación básica de formato esperado
+    if (!rawText.includes("CPU:") || !rawText.includes("RAM:")) {
+      setMessage("Error: Formato incorrecto. Asegúrate de pegar la salida completa del script.");
+      setSpecs(null);
+      return;
+    }
+
     const ramMatch = rawText.match(/RAM:\s*(\d+)\/(\d+)\s*\((\d+)\s*free\)/);
     const storageMatch = rawText.match(/Disk free:\s*(\d+)/);
     const isDual = /Dual.*Channel.*detected/i.test(rawText);
 
+    // Sanear cadenas de texto (limitar longitud)
+    const sanitizeString = (str: string | undefined, defaultVal: string) => {
+      if (!str) return defaultVal;
+      const cleanStr = str.trim().substring(0, 100); // Limitar a 100 caracteres
+      return cleanStr || defaultVal;
+    };
+
     const parsedSpecs: HardwareSpecs = {
-      cpu_model: rawText.match(/CPU:\s*(.*)/)?.[1]?.trim() || "Unknown CPU",
-      used_ram: ramMatch ? parseInt(ramMatch[1], 10) : 0,
-      total_ram: ramMatch ? parseInt(ramMatch[2], 10) : 0,
-      free_ram: ramMatch ? parseInt(ramMatch[3], 10) : 0,
-      os: rawText.match(/OS:\s*(.*)/)?.[1]?.trim() || "Unknown OS",
-      free_storage: storageMatch ? parseInt(storageMatch[1], 10) : 0,
-      gpu_model: rawText.match(/GPU:\s*(.*)/)?.[1]?.trim() || "Unknown GPU",
+      cpu_model: sanitizeString(rawText.match(/CPU:\s*(.*)/)?.[1], "Unknown CPU"),
+      used_ram: ramMatch ? Math.max(0, parseInt(ramMatch[1], 10)) : 0,
+      total_ram: ramMatch ? Math.max(0, parseInt(ramMatch[2], 10)) : 0,
+      free_ram: ramMatch ? Math.max(0, parseInt(ramMatch[3], 10)) : 0,
+      os: sanitizeString(rawText.match(/OS:\s*(.*)/)?.[1], "Unknown OS"),
+      free_storage: storageMatch ? Math.max(0, parseInt(storageMatch[1], 10)) : 0,
+      gpu_model: sanitizeString(rawText.match(/GPU:\s*(.*)/)?.[1], "Unknown GPU"),
       is_dual_channel: isDual
     };
+
+    // Validaciones de valores sospechosos
+    if (parsedSpecs.total_ram === 0 || parsedSpecs.cpu_model === "Unknown CPU") {
+      setMessage("Advertencia: No se pudieron extraer algunos datos clave (RAM o CPU).");
+    } else if (parsedSpecs.total_ram > 1024 * 1024) { // Suponiendo MB, 1TB es exagerado
+      setMessage("Advertencia: Los valores de RAM parecen inusualmente altos.");
+    } else if (parsedSpecs.free_storage > 500000) { // Suponiendo GB, 500TB es exagerado
+      setMessage("Advertencia: El almacenamiento parece inusualmente alto.");
+    } else {
+      setMessage(""); // Limpiar mensaje si todo parece bien
+    }
 
     setSpecs(parsedSpecs);
     console.log("Ready for Backend:", parsedSpecs);

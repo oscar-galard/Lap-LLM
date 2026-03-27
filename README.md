@@ -1,5 +1,7 @@
 # lap-llm 💻🧠 [Hacker Edition]
 
+**🌐 [Visita el sitio web →](https://lap-llm.vestaagentic.com/)**
+
 ![Lap-LLM imagen](https://i.postimg.cc/QNwYHtnf/2026-03-25-215323-scrot.png)
 
 > **"Hackeando los límites del Kernel para ejecutar modelos de 30B en la laptop que ya tienes."**
