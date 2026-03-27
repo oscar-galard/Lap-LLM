@@ -54,6 +54,18 @@ Es un **Orquestador de Viabilidad** que analiza tu hardware y, mediante el RAG, 
 
 ---
 
+## 🚀 Despliegue con CubePath
+
+Este proyecto está desplegado en **CubePath**, aprovechando su infraestructura developer-friendly para orquestar los servicios de forma eficiente:
+
+- **Instancia GP.MICRO**: Utilicé una instancia de este plan para crear un VPS robusto y económico.
+- **Arquitectura con Docker y Traefik**: 
+  - **Frontend**: Interfaz desarrollada en React con TypeScript, contenerizada y servida a través de Traefik como reverse proxy.
+  - **Backend**: API REST construida en Python con Clean Architecture, también contenerizada y gestionada por Traefik para enrutamiento y balanceo.
+- **Experiencia destacada**: CubePath ofrece una experiencia excepcional para desarrolladores, con un proceso de despliegue sencillo, planes completos y un entorno SSH que hace sentir como en casa desde el primer momento. La combinación de simplicidad y potencia me ha motivado a considerar migrar otros proyectos a esta plataforma.
+
+---
+
 ## 🚧 Estado del Proyecto
 
 Actualmente en desarrollo activo para la **Hackatón CubePath 2026**.  
