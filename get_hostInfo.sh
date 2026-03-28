@@ -52,6 +52,6 @@ echo -e "\e[1mDisk free:\e[0m $disk_info available on /"
 echo -e "\e[1;34m=======================================\e[0m"
 
 # --- User Guidance ---
-echo -e "\n\e[1;32m[ACTION REQUERIDA]\e[0m"
+echo -e "\n\e[1;32m[ACTION REQUIRED]\e[0m"
 echo "El reporte es el codigo en medio de los signos ====."
 echo "Copia el reporte de arriba y pegalo en el Paso 2 de lap-llm."

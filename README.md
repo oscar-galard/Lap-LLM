@@ -46,6 +46,37 @@ Es un **Orquestador de Viabilidad** que analiza tu hardware y, mediante el RAG, 
 
 ---
 
+# 🖥️ Cómo probarlo 
+
+**Así funciona:**  
+
+1. **Ve al sitio web** y haz clic en "Analizar mi hardware".
+2. **Paso 1:** Copia el comando con el boton 📋 y pégalo en tu terminal (Linux/macOS):
+Puedes probar el diagnóstico con solo copiar y pegar el ejemplo.
+## Ejemplo de salida (para que sepas cómo se ve):
+```bash
+user@host ~$ curl -s https://raw.githubusercontent.com/oscar-galard/Lap-LLM/main/get_hostInfo.sh | bash -e
+Nota: El acceso directo a las tablas SMBIOS (vía dmidecode) requiere permisos de superusuario para una auditoría de hardware completa.
+sudo (usuario@tu_host) password: 
+
+======= Lap-LLM Hardware Report =======
+OS: Gentoo Linux
+CPU:  AMD Ryzen 7 PRO 4750U with Radeon Graphics
+GPU:  Advanced Micro Devices, Inc. [AMD/ATI] Renoir [Radeon Vega Series / Radeon Vega Mobile Series] (rev d1)
+RAM: 2183/29783 (26155 free)
+RAM Channel: Dual Channel detected
+Disk free: 279G available on /
+=======================================
+
+[ACTION REQUIRED]
+El reporte es el código entre los signos ====.
+Copia el reporte de arriba y pégalo en el Paso 2 de lap-llm.
+```
+3. **Paso 2:** Copia la salida completa que obtengas (o el ejemplo anterior) y pégala en la caja de texto del Paso 2 de lap-llm.
+**¡Listo!** El sistema analizará el hardware y te dará recomendaciones personalizadas.
+
+---
+
 ## 🔧 Hardcore Features
 
 * **Análisis Directo del sistema:** Lee el estado real de tu hardware, no lo que dice el marketing.
