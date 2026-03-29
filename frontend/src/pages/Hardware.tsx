@@ -9,6 +9,17 @@ interface BackendResponse {
   recommendations: string;
 }
 
+const getInstallCommand = () => {
+  // Detectar la plataforma mediante el User Agent
+  const platform = typeof window !== 'undefined' ? window.navigator.userAgent.toLowerCase() : '';
+
+  if (platform.includes("win")) {
+    return "powershell -ExecutionPolicy Bypass -NoProfile -Command \"Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/oscar-galard/Lap-LLM/main/get_winInfo.ps1')\"";
+  } else {
+    return "curl -s https://raw.githubusercontent.com/oscar-galard/Lap-LLM/main/get_hostInfo.sh | bash -e";
+  }
+};
+
 function Hardware() {
   const [specs, setSpecs] = useState<HardwareSpecs | null>(null);
   const [isSending, setIsSending] = useState(false);
@@ -103,7 +114,7 @@ function Hardware() {
   };
 
   const copyCommand = () => {
-    const command = "curl -s https://raw.githubusercontent.com/oscar-galard/Lap-LLM/main/get_hostInfo.sh | bash -e";
+    const command = getInstallCommand();
     navigator.clipboard.writeText(command);
   };
 
@@ -158,7 +169,7 @@ function Hardware() {
             {/* El Comando (Terminal Style) */}
             <code className="relative flex-1 bg-black/80 text-green-300 p-3 rounded border border-green-900/50 font-mono text-xs overflow-x-auto shadow-[inset_0_0_10px_rgba(0,255,0,0.05)]">
               <span className="text-green-600 mr-2">$</span>
-              curl -s https://raw.githubusercontent.com/oscar-galard/Lap-LLM/main/get_hostInfo.sh | bash -e
+              {getInstallCommand()}
             </code>
           </div>
         </div>
