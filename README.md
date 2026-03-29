@@ -49,7 +49,7 @@ Es un **Orquestador de Viabilidad** que analiza tu hardware y, mediante el RAG, 
 # 🖥️ Cómo probarlo 
 
 **Así funciona:**  
-
+![Lap-LLM imagen](https://i.postimg.cc/MTbMwQ2R/demo.gif)  
 1. **Ve al sitio web** y haz clic en "Analizar mi hardware".
 2. **Paso 1:** Copia el comando con el boton 📋 y pégalo en tu terminal (Linux/macOS):
 Puedes probar el diagnóstico con solo copiar y pegar el ejemplo.
