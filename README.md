@@ -1,4 +1,4 @@
-# lap-llm 💻🧠 [Hacker Edition]
+# lap-llm 💻🧠 [Linux Hacker Edition]
 
 **🌐 [Visita el sitio web →](https://lap-llm.vestaagentic.com/)**
 
@@ -16,7 +16,8 @@ En la mayor parte de internet, la respuesta es: "Paga una suscripción o usa la 
 
 Logré ejecutar **Qwen3-Coder** localmente en mi laptop y lo uso cada día para programar software real. No es solo un reto técnico; es **Soberanía Digital**. Ser dueño de tus herramientas en lugar de rentarlas.
 
-Este proyecto es la culminación de meses de investigación en **arquitectura de memoria unificada (UMA)**, optimización de drivers en Linux y despliegue de modelos cuantizados en hardware modesto.
+### 🐧 Por qué Linux es el "Game Changer"
+Este proyecto es la culminación de meses de investigación en **arquitectura de memoria unificada (UMA)**, optimización de drivers en Linux y despliegue de modelos cuantizados en hardware modesto. Si bien lap-llm te dará un diagnóstico en cualquier sistema, la verdadera magia ocurre en el Kernel. Mientras que en otros OS imponen límites arbitrarios de reserva de VRAM para sus iGPUs, en Linux tú puedes ganar el control. Lap-LLM está diseñado para quienes están listos para dejar de ser "usuarios" y convertirse en "administradores", tuneando drivers y parámetros de memoria que otros sistemas bloquean.
 
 ---
 
